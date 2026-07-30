@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giorgio Buonanno — Aerosol Scientist, University of Cassino and Southern Lazio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,440;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101c22;
+    --paper:#eef1ec;
+    --paper-2:#e5e9e2;
+    --panel:#f9faf7;
+    --atmosphere:#0c2430;
+    --atmosphere-2:#123a44;
+    --green:#5fae86;
+    --green-dim:#3d7f60;
+    --rose:#c06a72;
+    --rose-dim:#a24e57;
+    --rule:#c7cec4;
+    --rule-soft:#dbe0d8;
+    --muted:#5a655d;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  /* film-grain texture, subtle, over everything */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:999;pointer-events:none;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;font-weight:440;letter-spacing:-0.01em;color:var(--ink);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--green);color:#08181f;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(238,241,236,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;}
+  .brand{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:19px;}
+  .brand span{color:var(--green-dim);}
+  nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0;}
+  nav a{
+    font-size:12.5px;text-decoration:none;color:var(--muted);
+    text-transform:uppercase;letter-spacing:0.08em;
+    font-family:'IBM Plex Mono',monospace;
+    position:relative;padding-bottom:3px;
+  }
+  nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--rose-dim);transition:width .3s ease;}
+  nav a:hover::after{width:100%;}
+  @media (max-width:820px){nav ul{display:none;}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(120% 150% at 15% -20%, var(--atmosphere-2), var(--atmosphere) 62%);
+    color:#e9f1ec;
+    overflow:hidden;
+    padding-top:60px;
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+  }
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0.9;}
+  .hero .rings{position:absolute;right:-8%;top:8%;width:60%;max-width:640px;opacity:0.5;z-index:1;}
+  .hero-inner{
+    position:relative;z-index:2;
+    padding:120px 32px 100px;
+    max-width:1120px;margin:0 auto;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--green);
+    display:flex;align-items:center;gap:10px;margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 4px rgba(192,106,114,0.18);}
+  .hero h1{
+    font-size:clamp(52px,9vw,108px);
+    line-height:0.92;margin:0 0 6px;font-weight:440;
+  }
+  .hero h1 em{font-style:italic;font-weight:500;color:#d7ebe0;}
+  .hero .role{
+    font-size:clamp(16.5px,2.1vw,21px);
+    color:#b7c7c0;font-weight:400;max-width:600px;margin:26px 0 0;
+    font-style:italic;font-family:'Fraunces',serif;
+  }
+  .hero .role b{color:#eaf2ee;font-weight:500;font-style:normal;}
+  .readout{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid rgba(234,242,238,0.18);
+    margin-top:56px;
+  }
+  .readout div{padding:22px 24px 0 0;border-right:1px solid rgba(234,242,238,0.14);}
+  .readout div:last-child{border-right:none;}
+  .readout .num{font-family:'IBM Plex Mono',monospace;font-size:clamp(21px,3vw,30px);color:var(--green);font-weight:500;}
+  .readout .lbl{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#8ea099;margin-top:6px;font-family:'IBM Plex Mono',monospace;}
+  @media (max-width:700px){.readout{grid-template-columns:repeat(2,1fr);}.readout div{margin-bottom:18px;}}
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:104px 0;position:relative;}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose-dim);margin:0 0 16px;display:flex;align-items:center;gap:10px;}
+  .kicker::before{content:"";width:22px;height:1px;background:var(--rose-dim);}
+  h2.title{font-size:clamp(28px,3.6vw,42px);margin:0 0 30px;max-width:720px;line-height:1.12;}
+  h2.title em{color:var(--green-dim);font-style:italic;}
+
+  /* ---------- About: editorial layout w/ marginalia ---------- */
+  .about-grid{display:grid;grid-template-columns:230px 1fr 0.8fr;gap:0 40px;align-items:start;}
+  .about-grid .side{position:sticky;top:96px;}
+  .about-grid .side .fig-lbl{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;
+    color:var(--muted);text-transform:uppercase;margin:0 0 14px;display:block;
+  }
+  .about-grid .side .cover-link{display:block;text-decoration:none;}
+  .about-grid .side .cover-link img{
+    width:100%;display:block;border:1px solid var(--rule-soft);
+    box-shadow:0 24px 44px -16px rgba(12,36,48,0.4);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .about-grid .side .cover-link:hover img{transform:translateY(-4px) scale(1.015);box-shadow:0 30px 54px -16px rgba(12,36,48,0.5);}
+  .about-grid .side .cover-cap{
+    display:block;text-align:center;margin-top:12px;text-decoration:none;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--muted);background:var(--panel);border:1px solid var(--rule-soft);padding:8px;
+  }
+  .dropcap::first-letter{
+    font-family:'Fraunces',serif;font-style:italic;font-size:64px;line-height:0.6;
+    float:left;padding:8px 10px 0 0;color:var(--green-dim);font-weight:500;
+  }
+  .about-grid p{color:var(--ink);max-width:56ch;}
+  .pull{
+    font-family:'Fraunces',serif;font-style:italic;font-size:22px;line-height:1.5;
+    color:var(--ink);border-left:2px solid var(--rose);padding-left:22px;margin:30px 0;max-width:52ch;
+  }
+  .about-grid .facts{background:var(--panel);border:1px solid var(--rule-soft);padding:28px;position:relative;}
+  .about-grid .facts::before{content:"CV SUMMARY";position:absolute;top:-11px;left:20px;background:var(--paper);padding:0 8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:var(--muted);}
+  .facts dl{margin:0;}
+  .facts .row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dashed var(--rule-soft);font-size:14px;}
+  .facts .row:last-child{border-bottom:none;}
+  .facts .row dt{color:var(--muted);}
+  .facts .row dd{margin:0;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12.5px;max-width:58%;}
+  @media (max-width:900px){.about-grid{grid-template-columns:1fr;}.about-grid .side{display:none;}}
+
+  /* ---------- Research cards, artistic tilt ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .card{
+    background:var(--panel);border:1px solid var(--rule-soft);padding:32px 26px;min-height:210px;
+    display:flex;flex-direction:column;position:relative;transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .card:hover{transform:translateY(-6px) rotate(-0.3deg);box-shadow:0 22px 40px -20px rgba(12,36,48,0.28);}
+  .card .glyph{width:34px;height:34px;margin-bottom:18px;color:var(--green-dim);}
+  .card .tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--rose-dim);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:10px;}
+  .card h3{font-size:19px;margin:0 0 10px;font-weight:600;}
+  .card p{font-size:14.5px;color:var(--muted);margin:0;}
+  @media (max-width:920px){.cards{grid-template-columns:1fr 1fr;}}
+  @media (max-width:600px){.cards{grid-template-columns:1fr;}}
+
+  /* ---------- Publications: specimen catalog ---------- */
+  .pub{
+    position:relative;display:grid;grid-template-columns:64px 1fr auto;gap:22px;align-items:start;
+    padding:28px 0;border-top:1px solid var(--rule-soft);
+  }
+  .pub:last-of-type{border-bottom:1px solid var(--rule-soft);}
+  .pub .dot-wrap{display:flex;align-items:center;justify-content:center;padding-top:6px;}
+  .pub .dot{border-radius:50%;background:var(--green);opacity:0.85;}
+  .pub .year{font-family:'IBM Plex Mono',monospace;color:var(--rose-dim);font-size:12.5px;display:block;margin-bottom:6px;}
+  .pub h3{font-size:18px;font-weight:600;margin:0 0 8px;line-height:1.35;}
+  .pub .venue{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:8px;font-family:'Fraunces',serif;}
+  .pub p{font-size:14.5px;color:var(--ink);margin:0;max-width:66ch;}
+  .pub .authors{font-size:12.5px;color:var(--muted);margin-bottom:4px;font-family:'IBM Plex Mono',monospace;}
+  .doi-btn{
+    align-self:start;margin-top:6px;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.04em;
+    color:var(--green-dim);text-decoration:none;border:1px solid var(--green-dim);
+    padding:8px 13px;transition:background .25s ease, color .25s ease;
+  }
+  .doi-btn:hover{background:var(--green-dim);color:#f4f8f5;}
+  .doi-btn svg{width:11px;height:11px;transition:transform .25s ease;}
+  .doi-btn:hover svg{transform:translate(2px,-2px);}
+  @media (max-width:700px){
+    .pub{grid-template-columns:1fr;}
+    .pub .dot-wrap{display:none;}
+    .doi-btn{margin-top:12px;}
+  }
+  .note{font-size:12.5px;color:var(--muted);margin-top:22px;font-style:italic;}
+
+  /* ---------- Books / editorial ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;}
+  @media (max-width:820px){.split{grid-template-columns:1fr;}}
+  .book{background:var(--panel);border:1px solid var(--rule-soft);padding:26px;margin-bottom:18px;border-left:3px solid var(--rose);}
+  .book h3{font-size:16.5px;margin:0 0 8px;font-weight:600;}
+  .book p{font-size:14px;color:var(--muted);margin:0;}
+  .editorial ul{list-style:none;margin:0;padding:0;}
+  .editorial li{padding:16px 0;border-top:1px dashed var(--rule-soft);font-size:14.5px;}
+  .editorial li:first-child{border-top:none;}
+  .editorial b{font-weight:600;}
+
+  /* ---------- Timeline: flowing river ---------- */
+  .timeline{position:relative;padding-left:36px;}
+  .timeline svg.river{position:absolute;left:0;top:0;height:100%;width:36px;}
+  .tl-item{position:relative;padding-bottom:44px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-36px;top:4px;width:12px;height:12px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--rose-dim);
+  }
+  .tl-item .yr{font-family:'IBM Plex Mono',monospace;color:var(--rose-dim);font-size:13px;margin-bottom:4px;}
+  .tl-item h3{font-size:18px;margin:0 0 6px;font-weight:600;}
+  .tl-item p{font-size:14.5px;color:var(--muted);margin:0;max-width:64ch;}
+
+  /* ---------- Projects ---------- */
+  .proj{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .proj .p-item{background:var(--panel);border:1px solid var(--rule-soft);padding:30px 26px;position:relative;overflow:hidden;}
+  .proj .p-item::after{content:"";position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(95,174,134,0.15),transparent 70%);}
+  .proj h3{font-size:17px;margin:0 0 8px;font-weight:600;}
+  .proj p{font-size:14.5px;color:var(--muted);margin:0;}
+  .proj .loc{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--rose-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;display:block;}
+  @media (max-width:700px){.proj{grid-template-columns:1fr;}}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--atmosphere);color:#c9d6d0;padding:80px 0 40px;position:relative;}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}
+  footer h3{color:#eaf2ee;font-size:20px;margin:0 0 14px;}
+  footer p{font-size:14px;color:#9fb2ab;max-width:40ch;margin:0 0 6px;}
+  footer a.email{color:var(--green);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:14.5px;}
+  .colophon{font-family:'Fraunces',serif;font-style:italic;font-size:26px;color:#d7ebe0;margin-top:50px;}
+  footer .fine{font-size:12px;color:#6f8680;margin-top:30px;border-top:1px solid rgba(234,242,238,0.12);padding-top:20px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">G. <span>Buonanno</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="field"></canvas>
+  <svg class="rings" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="40" fill="none" stroke="#5fae86" stroke-width="1"/>
+    <circle cx="200" cy="200" r="90" fill="none" stroke="#5fae86" stroke-width="1" opacity="0.7"/>
+    <circle cx="200" cy="200" r="140" fill="none" stroke="#c06a72" stroke-width="1" opacity="0.5"/>
+    <circle cx="200" cy="200" r="190" fill="none" stroke="#5fae86" stroke-width="1" opacity="0.35"/>
+    <circle cx="200" cy="200" r="6" fill="#c06a72"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow">Full Professor · Applied thermodynamics</div>
+    <h1><em>Giorgio Buonanno</em></h1>
+    <p class="role">An aerosol scientist reading the room's invisible weather — <b>particles, quanta and the physics of breathing shared air</b> — at the University of Cassino and Southern Lazio.</p>
+    <div class="readout">
+      <div><div class="num">200+</div><div class="lbl">Publications</div></div>
+      <div><div class="num">12.5k+</div><div class="lbl">Citations</div></div>
+      <div><div class="num">1996</div><div class="lbl">PhD Awarded</div></div>
+      <div><div class="num">30 yr</div><div class="lbl">Research Career</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="side">
+      <span class="fig-lbl"></span>
+      <a class="cover-link" href="https://www.guerini.it/index.php/prodotto/il-silenzio-dei-negazionisti/" target="_blank" rel="noopener" title="Il silenzio dei negazionisti — Giorgio Buonanno">
+        <img src="https://www.guerini.it/wp-content/uploads/2025/05/IL-SILENZIO-DEI-NEGAZIONISTI-9788862509596-600x933.webp" alt="Copertina: Il silenzio dei negazionisti, Giorgio Buonanno">
+      </a>
+      <a class="cover-cap" href="https://www.guerini.it/index.php/prodotto/il-silenzio-dei-negazionisti/" target="_blank" rel="noopener">Buy now →</a>
+    </div>
+    <div class="reveal">
+      <div class="kicker">About</div>
+      <h2 class="title">Measuring what we can't see, to understand what it does to us.</h2>
+      <p class="dropcap">Giorgio Buonanno is Full Professor of Applied Thermodynamics in the Department of Civil and Mechanical Engineering at the University of Cassino and Southern Lazio (UNICAS), Italy. He earned his PhD in Mechanical Engineering from the University of Cassino in 1996, and from 2016 to 2019 held a tenured full professorship in the Department of Engineering at the University of Naples Parthenope before returning to Cassino.</p>
+      <p class="pull">"Airborne transmission is a recognized pathway of contagion — yet for decades it was rarely measured quantitatively at all."</p>
+      <p>His research sits at the meeting point of aerosol physics, environmental metrology and public health: how airborne particles — combustion soot, traffic emissions, exhaled respiratory droplets — form, disperse indoors and outdoors, and translate into exposure and disease risk. During the COVID-19 pandemic, his quanta-emission and infection-risk models, built with international collaborators, became widely used reference tools for assessing airborne transmission in shared indoor spaces.</p>
+    </div>
+    <div class="facts reveal">
+      <dl>
+        <div class="row"><dt>Affiliation</dt><dd>University of Cassino and Southern Lazio</dd></div>
+        <div class="row"><dt>Department</dt><dd>Civil &amp; Mechanical Engineering</dd></div>
+        <div class="row"><dt>Discipline (SSD)</dt><dd>ING-IND/10 · Environmental Technical Physics</dd></div>
+        <div class="row"><dt>PhD</dt><dd>Mechanical Eng., Univ. of Cassino, 1996</dd></div>
+        <div class="row"><dt>Prior post</dt><dd>Full Professor, Univ. Napoli Parthenope (2016–2019)</dd></div>
+        <div class="row"><dt>Key collaborators</dt><dd>L. Morawska, L. Stabile, J.L. Jiménez, L. Marr</dd></div>
+        <div class="row"><dt>Measurement network</dt><dd>IMEKO Technical Committee 16</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="kicker">Research Focus</div>
+    <h2 class="title reveal">Six threads running through three decades of work on <em>air we share</em>.</h2>
+    <div class="cards">
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><circle cx="12" cy="14" r="3" stroke="currentColor" stroke-width="1.4"/><circle cx="24" cy="24" r="5.5" stroke="currentColor" stroke-width="1.4"/><circle cx="30" cy="10" r="1.8" stroke="currentColor" stroke-width="1.4"/></svg>
+        <div class="tag">Aerosol Science</div>
+        <h3>Indoor &amp; Personal Air Quality</h3>
+        <p>Particle number concentration, size distribution and personal exposure assessment in homes, schools and vehicles.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="4" fill="currentColor"/><circle cx="20" cy="20" r="10" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="1.2" opacity="0.5"/></svg>
+        <div class="tag">Public Health</div>
+        <h3>Airborne Disease Transmission</h3>
+        <p>Quanta emission-rate modelling and infection-risk assessment for SARS-CoV-2 and other respiratory pathogens.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><rect x="9" y="16" width="22" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M14 16v-3a6 6 0 0 1 12 0v3" stroke="currentColor" stroke-width="1.4"/></svg>
+        <div class="tag">Metrology</div>
+        <h3>Environmental Instrumentation</h3>
+        <p>Design, calibration and validation of diffusion-charger and optical particle counters for field monitoring.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><path d="M8 30c4-14 8-20 12-20s8 6 12 20" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="8" r="2" fill="currentColor"/></svg>
+        <div class="tag">Atmospheric Pollution</div>
+        <h3>Combustion &amp; PM Emissions</h3>
+        <p>Emission factors and lung-dose/cancer-risk modelling for waste-to-energy plants, heating systems and traffic.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><path d="M12 30c0-8 4-16 8-20 4 4 8 12 8 20a8 8 0 0 1-16 0z" stroke="currentColor" stroke-width="1.4"/></svg>
+        <div class="tag">Radiological Aerosols</div>
+        <h3>Radon &amp; Natural Radioactivity</h3>
+        <p>Radon-progeny/particle interactions and radon emission from soil, springs and groundwater sources.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none"><path d="M8 24h6l4-10 4 16 4-10h6" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <div class="tag">Building Physics</div>
+        <h3>Ventilation &amp; Comfort</h3>
+        <p>Ventilation strategies balancing energy efficiency, thermal comfort and healthy indoor air.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="kicker">Selected Publications</div>
+    <h2 class="title reveal">Landmark papers, from personal exposure monitors to <em>pandemic-era risk models</em>.</h2>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:16px;height:16px;"></span></div>
+      <div>
+        <span class="year">2020</span>
+        <div class="authors">Buonanno, G., Morawska, L., Stabile, L.</div>
+        <h3>Quantitative assessment of the risk of airborne transmission of SARS-CoV-2 infection: prospective and retrospective applications</h3>
+        <div class="venue">Environment International, 145, 106112</div>
+        <p>One of the first quantitative frameworks for estimating airborne SARS-CoV-2 infection risk, applied retrospectively to documented outbreaks and prospectively to guide ventilation and occupancy decisions.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.1016/j.envint.2020.106112" target="_blank" rel="noopener">DOI · 10.1016/j.envint.2020.106112 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:12px;height:12px;"></span></div>
+      <div>
+        <span class="year">2020</span>
+        <div class="authors">Buonanno, G., Stabile, L., Morawska, L.</div>
+        <h3>Estimation of airborne viral emission: quanta emission rate of SARS-CoV-2 for infection risk assessment</h3>
+        <div class="venue">Environment International, 141, 105794</div>
+        <p>Introduced a viral-load-based method for estimating quanta emission rates by respiratory activity — a foundational input for airborne-risk models used worldwide during the pandemic.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.1016/j.envint.2020.105794" target="_blank" rel="noopener">DOI · 10.1016/j.envint.2020.105794 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:20px;height:20px;background:var(--rose);"></span></div>
+      <div>
+        <span class="year">2020</span>
+        <div class="authors">Morawska, L., Tang, J.W., Bahnfleth, W., Bluyssen, P.M., Buonanno, G., et al.</div>
+        <h3>How can airborne transmission of COVID-19 indoors be minimised?</h3>
+        <div class="venue">Environment International, 142, 105832</div>
+        <p>A multidisciplinary consensus piece translating airborne-transmission science into practical mitigation guidance for shared indoor spaces.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.1016/j.envint.2020.105832" target="_blank" rel="noopener">DOI · 10.1016/j.envint.2020.105832 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:10px;height:10px;background:var(--rose);"></span></div>
+      <div>
+        <span class="year">2021</span>
+        <div class="authors">Miller, S.L., Nazaroff, W.W., Jimenez, J.L., Boerstra, A., Buonanno, G., et al.</div>
+        <h3>Transmission of SARS-CoV-2 by inhalation of respiratory aerosol in the Skagit Valley Chorale superspreading event</h3>
+        <div class="venue">Indoor Air, 31(2), 314–323</div>
+        <p>Reconstructed one of the most closely studied superspreading events of the pandemic, providing quantitative support for long-range airborne transmission.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.1111/ina.12751" target="_blank" rel="noopener">DOI · 10.1111/ina.12751 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:15px;height:15px;"></span></div>
+      <div>
+        <span class="year">2021</span>
+        <div class="authors">Tang, J.W., Bahnfleth, W.P., Bluyssen, P.M., Buonanno, G., Jimenez, J.L., et al.</div>
+        <h3>Dismantling myths on the airborne transmission of severe acute respiratory syndrome coronavirus-2 (SARS-CoV-2)</h3>
+        <div class="venue">Journal of Hospital Infection, 110, 89–96</div>
+        <p>Addressed persistent misconceptions about respiratory-disease transmission routes, arguing for engineering controls as a primary line of defence.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.1016/j.jhin.2020.12.022" target="_blank" rel="noopener">DOI · 10.1016/j.jhin.2020.12.022 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <div class="pub reveal">
+      <div class="dot-wrap"><span class="dot" style="width:8px;height:8px;"></span></div>
+      <div>
+        <span class="year">2014</span>
+        <div class="authors">Buonanno, G., Jayaratne, R.E., Morawska, L., Stabile, L.</div>
+        <h3>Metrological performances of a diffusion charger particle counter for personal monitoring</h3>
+        <div class="venue">Aerosol and Air Quality Research, 14, 156–167</div>
+        <p>A foundational instrumentation study validating a compact diffusion-charger sensor for tracking individual exposure to sub-micrometric particles in daily life.</p>
+      </div>
+      <a class="doi-btn" href="https://doi.org/10.4209/aaqr.2013.05.0152" target="_blank" rel="noopener">DOI · 10.4209/aaqr.2013.05.0152 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
+
+    <p class="note">DOI links open the article of record at its publisher. Publication and citation counts are approximate, drawn from public bibliometric profiles (Google Scholar, ResearchGate, Scopus) as of 2026.</p>
+  </div>
+</section>
+
+<section id="books">
+  <div class="wrap split">
+    <div>
+      <div class="kicker">Books &amp; Reference Works</div>
+      <h2 class="title reveal" style="margin-bottom:20px;">Contributions to reference literature</h2>
+      <div class="book reveal">
+        <h3>Particulates Matter: Impact, Measurement, and Remediation of Airborne Pollutants</h3>
+        <p>Contributing author, Emerging Issues in Analytical Chemistry series — covering sources, detection techniques and health impacts of particulate matter, alongside remediation strategies.</p>
+      </div>
+      <div class="book reveal">
+        <h3>Technical &amp; regulatory contributions on indoor air quality</h3>
+        <p>Contributions to technical guidance on ventilation, personal exposure monitoring and airborne infection-risk assessment, cited in public-health guidance during the COVID-19 pandemic.</p>
+      </div>
+    </div>
+    <div class="editorial reveal">
+      <div class="kicker">Editorial &amp; Society Roles</div>
+      <h2 class="title" style="margin-bottom:20px;">Service to the field</h2>
+      <ul>
+        <li><b>Member, IMEKO Technical Committee 16</b> — International Measurement Confederation, contributing to standards and best practice in environmental measurement.</li>
+        <li><b>Editorial contributions</b> — Science of The Total Environment, Building and Environment, and the Journal of Aerosol Science, including peer review and editor's notes on published work.</li>
+        <li><b>International collaboration</b> — long-running partnership with the International Laboratory for Air Quality and Health at Queensland University of Technology (QUT), Australia.</li>
+        <li><b>Public engagement</b> — briefings to schools and public bodies in the Cassino area on airborne transmission and indoor-air mitigation during the COVID-19 pandemic.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="kicker">Academic &amp; Professional Experience</div>
+    <h2 class="title reveal">Three decades from the aerosol lab bench to <em>pandemic-era public-health guidance</em>.</h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="yr">1996</div>
+        <h3>PhD, Mechanical Engineering</h3>
+        <p>University of Cassino — dissertation work laying the foundation for a career in environmental technical physics and aerosol measurement.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">1996 – 2016</div>
+        <h3>Researcher &amp; Associate Professor</h3>
+        <p>Department of Civil and Mechanical Engineering, University of Cassino — building a research programme in aerosol metrology, indoor air quality and environmental exposure assessment.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2016 – 2019</div>
+        <h3>Full Professor (tenured)</h3>
+        <p>Department of Engineering, University of Naples Parthenope — continuing research on airborne particle exposure and environmental measurement.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2019 – present</div>
+        <h3>Full Professor, Environmental Technical Physics</h3>
+        <p>Department of Civil and Mechanical Engineering, University of Cassino and Southern Lazio — leading research on aerosol science, airborne disease transmission and environmental instrumentation.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2020 – 2022</div>
+        <h3>COVID-19 airborne-transmission research</h3>
+        <p>Co-developed quanta-emission and infection-risk models with international collaborators, informing ventilation and public-health guidance during the pandemic.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">Ongoing</div>
+        <h3>International measurement &amp; aerosol network</h3>
+        <p>Active member of IMEKO Technical Committee 16 and long-term research partner of the International Laboratory for Air Quality and Health, QUT, Australia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="kicker">Projects &amp; Collaborations</div>
+    <h2 class="title reveal">Where the research travels: <em>labs, cities and public-health guidance</em>.</h2>
+    <div class="proj">
+      <div class="p-item reveal">
+        <span class="loc">Brisbane, Australia</span>
+        <h3>International Laboratory for Air Quality and Health</h3>
+        <p>Sustained collaboration with Lidia Morawska's group at QUT on personal aerosol monitors and airborne viral transmission research.</p>
+      </div>
+      <div class="p-item reveal">
+        <span class="loc">Global working group</span>
+        <h3>Airborne transmission &amp; infection-risk modelling</h3>
+        <p>With J.L. Jiménez (Colorado) and Linsey Marr (Virginia Tech), contributing risk-assessment tools referenced in public-health guidance during COVID-19.</p>
+      </div>
+      <div class="p-item reveal">
+        <span class="loc">Cassino, Italy</span>
+        <h3>Personal exposure &amp; instrumentation lab</h3>
+        <p>Development and field validation of diffusion-charger and optical particle counters for personal and ambient aerosol monitoring.</p>
+      </div>
+      <div class="p-item reveal">
+        <span class="loc">Italian schools &amp; springs</span>
+        <h3>Children's exposure &amp; radon mapping studies</h3>
+        <p>Long-term dose assessment for schoolchildren exposed to particulate matter, and mapping of radon emissions from natural spring outlets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div>
+      <h3>Get in touch</h3>
+      <p>Department of Civil and Mechanical Engineering</p>
+      <p>University of Cassino and Southern Lazio</p>
+      <p>03043 Cassino (FR), Italy</p>
+      <p style="margin-top:14px;"><a class="email" href="mailto:giorgio.buonanno@unicas.it">giorgio.buonanno@unicas.it</a></p>
+    </div>
+    <div>
+      <h3>Elsewhere</h3>
+      <p><a href="https://unicas-public.gomp.it/PublicData?mode=professor&name=Giorgio&lastName=BUONANNO&iso=ita" target="_blank" rel="noopener">unicas.it</a></p>
+      <p><a href="https://www.scopus.com/authid/detail.uri?authorId=7006985475" target="_blank" rel="noopener">Scopus profile</a></p>
+      <p><a href="https://orcid.org/0000-0003-0525-0781" target="_blank" rel="noopener">ORCiD</a></p>
+    </div>
+  </div>
+  <div class="wrap"><div class="colophon">— G. Buonanno</div></div>
+  <div class="wrap fine">
+    Unofficial personal page compiled from public academic profiles (UNICAS, Google Scholar, ResearchGate, ScienceDirect, PubMed) as of 2026, with DOIs verified against publisher records. Not an official university page.
+  </div>
+</footer>
+
+<script>
+  // Aerosol particle field — drifting particles of varying size and warmth,
+  // echoing the size-distribution measurements at the heart of this research.
+  const canvas = document.getElementById('field');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles;
+  const palette = [
+    [120,200,170], // green
+    [200,140,150], // rose
+    [230,240,235]  // pale
+  ];
+
+  function resize(){ w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+
+  function initParticles(){
+    const count = Math.max(50, Math.floor(w/18));
+    particles = Array.from({length: count}, () => ({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      r: Math.random()*Math.random()*3.4 + 0.6,
+      vy: -(Math.random()*0.26 + 0.05),
+      vx: (Math.random()-0.5)*0.2,
+      a: Math.random()*0.5 + 0.12,
+      c: palette[Math.floor(Math.random()*palette.length)]
+    }));
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{
+      p.x += p.vx; p.y += p.vy;
+      if(p.y < -10){ p.y = h+10; p.x = Math.random()*w; }
+      if(p.x < -10) p.x = w+10;
+      if(p.x > w+10) p.x = -10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+
+  function setup(){ resize(); initParticles(); }
+  window.addEventListener('resize', setup);
+  setup();
+  tick();
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
