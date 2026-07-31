@@ -152,13 +152,16 @@
     color:var(--ink);border-left:2px solid var(--rose);padding-left:22px;margin:30px 0;max-width:52ch;
   }
   .about-grid .facts{background:var(--panel);border:1px solid var(--rule-soft);padding:28px;position:relative;}
-  .about-grid .facts::before{content:"CV SUMMARY";position:absolute;top:-11px;left:20px;background:var(--paper);padding:0 8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:var(--muted);}
+  .about-grid .facts::before{content:"FIG. 01 — CV SUMMARY";position:absolute;top:-11px;left:20px;background:var(--paper);padding:0 8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:var(--muted);}
   .facts dl{margin:0;}
   .facts .row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px dashed var(--rule-soft);font-size:14px;}
   .facts .row:last-child{border-bottom:none;}
   .facts .row dt{color:var(--muted);}
   .facts .row dd{margin:0;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12.5px;max-width:58%;}
-  @media (max-width:900px){.about-grid{grid-template-columns:1fr;}.about-grid .side{display:none;}}
+  @media (max-width:900px){
+    .about-grid{grid-template-columns:1fr;}
+    .about-grid .side{position:static;max-width:200px;margin:0 auto 36px;}
+  }
 
   /* ---------- Research cards, artistic tilt ---------- */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -293,7 +296,7 @@
       <a class="cover-link" href="https://www.guerini.it/index.php/prodotto/il-silenzio-dei-negazionisti/" target="_blank" rel="noopener" title="Il silenzio dei negazionisti — Giorgio Buonanno">
         <img src="https://www.guerini.it/wp-content/uploads/2025/05/IL-SILENZIO-DEI-NEGAZIONISTI-9788862509596-600x933.webp" alt="Copertina: Il silenzio dei negazionisti, Giorgio Buonanno">
       </a>
-      <a class="cover-cap" href="https://www.guerini.it/index.php/prodotto/il-silenzio-dei-negazionisti/" target="_blank" rel="noopener">Buy now →</a>
+      <a class="cover-cap" href="https://www.guerini.it/index.php/prodotto/il-silenzio-dei-negazionisti/" target="_blank" rel="noopener">Compra il libro →</a>
     </div>
     <div class="reveal">
       <div class="kicker">About</div>
@@ -556,7 +559,7 @@
   </div>
   <div class="wrap"><div class="colophon">— G. Buonanno</div></div>
   <div class="wrap fine">
-    official page
+   Official page
   </div>
 </footer>
 
