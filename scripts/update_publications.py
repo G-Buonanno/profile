@@ -180,7 +180,7 @@ def main():
     # Compare without the date stamp so an unchanged list produces no commit.
     m = UPD_RE.search(original)
     current_stamp = re.sub(r"<!--/?UPD-->", "", m.group(0)) if m else ""
-    if rewrite(original, records, current_stamp) == original:
+    if current_stamp and rewrite(original, records, current_stamp) == original:
         print("No changes.")
         return
 
