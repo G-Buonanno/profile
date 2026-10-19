@@ -32,27 +32,27 @@ def fetch(view):
     headers = {"X-ELS-APIKey": os.environ["SCOPUS_API_KEY"], "Accept": "application/json"}
     if os.environ.get("SCOPUS_INSTTOKEN"):
         headers["X-ELS-Insttoken"] = os.environ["SCOPUS_INSTTOKEN"]
-    params = {
-        "query": f"AU-ID({AUTHOR_ID})",
-        "view": view,
-        "count": 25 if view == "COMPLETE" else 200,
-        "cursor": "*",
-        "sort": "-coverDate",
-    }
-    entries = []
+    page = 25  # maximum page size allowed for keys without institutional access
+    entries, start = [], 0
     while True:
+        params = {
+            "query": f"AU-ID({AUTHOR_ID})",
+            "view": view,
+            "count": page,
+            "start": start,
+            "sort": "-coverDate",
+        }
         r = requests.get(API, params=params, headers=headers, timeout=60)
-        r.raise_for_status()
+        if not r.ok:
+            print(f"Scopus API error {r.status_code} (view={view}): {r.text[:500]}")
+            r.raise_for_status()
         sr = r.json()["search-results"]
         batch = [e for e in sr.get("entry", []) if "error" not in e]
-        if not batch:
-            break
         entries += batch
         total = int(sr.get("opensearch:totalResults", 0))
-        nxt = sr.get("cursor", {}).get("@next")
-        if not nxt or len(entries) >= total:
+        start += page
+        if not batch or start >= total:
             break
-        params["cursor"] = nxt
     return entries
 
 
